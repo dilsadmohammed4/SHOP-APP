@@ -1,0 +1,17 @@
+
+tsc --init
+npm install -g typescript
+npm install -g ts-node
+C:\Users\user\AppData\Roaming\npm
+npm install @types/bcryptjs @types/cors @types/dotenv @types/express @types/express-validator @types/gravatar @types/jsonwebtoken @types/mongoose @types/node bcryptjs cors dotenv express express-validator gravatar jsonwebtoken mongoose nodemon ts-node typescript
+
+mongodb+srv://dilsad:<password>@react-mern.exh5udj.mongodb.net/
+
+npm install bootstrap @types/bootstrap bootstrap-icons react-bootstrap @types/react-bootstrap moment @types/moment axios @types/axios @types/react-router-dom react-router-dom @reduxjs/toolkit react-redux @types/react-redux redux-logger @types/redux-logger react-toastify @types/react-toastify
+
+
+
+
+
+
+
