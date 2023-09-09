@@ -46,7 +46,7 @@ export const createNewAddress = async (
           return response.status(200).json({
             status: APP_STATUS.SUCCESS,
             data: newAddress,
-            msg: "New shipping address is added!",
+            msg: "New shipping address added!",
           });
         }
       }

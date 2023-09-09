@@ -37,7 +37,7 @@ export const createCatagory = async (request: Request, response: Response) => {
         return response.status(200).json({
           status: APP_STATUS.SUCCESS,
           data: savedCategory,
-          msg: "New category id created!",
+          msg: "New category added!",
         });
       }
     }
@@ -69,7 +69,7 @@ export const createSubCatagory = async (
       }
       let theSub = await subCategoryCollection.findOne({ name: name });
       if (theSub) {
-        ThrowError(response, 401, "SubCategory is already exits!");
+        ThrowError(response, 401, "Subcategory is already exits!");
       }
       let theSubCategory = await new subCategoryCollection({
         name: name,
@@ -82,7 +82,7 @@ export const createSubCatagory = async (
           return response.status(200).json({
             status: APP_STATUS.SUCCESS,
             data: catagoryObj,
-            msg: "Sub category id created!",
+            msg: "Subcategory added!",
           });
         }
       }
@@ -108,7 +108,7 @@ export const getAllCatagory = async (request: Request, response: Response) => {
     return response.status(200).json({
       status: APP_STATUS.SUCCESS,
       data: categories,
-      msg: "All Catagory fetched!",
+      msg: "All catagory fetched!",
     });
   } catch (error: any) {
     return ThrowError(response, error);

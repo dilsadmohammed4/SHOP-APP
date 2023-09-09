@@ -5,28 +5,13 @@ const CartSchema = new mongoose.Schema<ICart>(
   {
     products: [
       {
-        _id: { type: String, required: true },
-        title: { type: String, required: true },
-        description: { type: String, required: true },
-        imageUrl: { type: String, required: true },
-        brand: { type: String, required: true },
+        product: {
+          type: mongoose.Schema.ObjectId,
+          required: true,
+          ref: "products",
+        },
         price: { type: String, required: true },
-        quantity: { type: String, required: true },
         count: { type: Number, required: true },
-        sold: { type: Number, required: true },
-        category0bj: {
-          _id: { type: String, required: true },
-          name: { type: String, required: true },
-          description: { type: String, required: true },
-          subCategories: { type: [String], required: true },
-          createdAt: { type: String, required: true },
-          updatedAt: { type: String, required: true },
-        },
-        subCategory0bj: {
-          _id: { type: String, required: true },
-          name: { type: String, required: true },
-          description: { type: String, required: true },
-        },
       },
     ],
     total: { type: String, required: true },

@@ -20,7 +20,7 @@ export interface CategoryObj {
   _id: string;
   name: string;
   description: string;
-  subCategories?: (string)[] | null;
+  subCategories?: string[] | null;
   createdAt: string;
   updatedAt: string;
 }
@@ -30,9 +30,14 @@ export interface SubCategoryObj {
   description: string;
   __v: number;
 }
+export interface INewCartProduct {
+  product: string;
+  count: number;
+  price: number;
+}
 export interface ICart {
   _id?: string;
-  products: ICartProduct[];
+  products: INewCartProduct[];
   total: string;
   tax: string;
   grandTotal: string;

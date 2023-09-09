@@ -121,7 +121,7 @@ export const loginUser = async (request: Request, response: Response) => {
               status: APP_STATUS.SUCCESS,
               data: userObj,
               token: encoded,
-              msg: "Login success",
+              msg: "Login successful!",
             });
           }
         }
