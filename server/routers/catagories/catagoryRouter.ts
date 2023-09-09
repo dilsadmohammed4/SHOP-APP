@@ -34,7 +34,7 @@ catagoryRouter.post(
  * @access : PRIVATE
  */
 catagoryRouter.post(
-  "/:catagoryId",
+  "/:categoryId",
   [
     body("name").not().isEmpty().withMessage("name is required"),
     body("description").not().isEmpty().withMessage("description is required"),
@@ -53,8 +53,8 @@ catagoryRouter.post(
  * @method : GET
  * @access : PUBLIC
  */
-catagoryRouter.post("/", async (request: Request, response: Response) => {
-  await catagoryController.createSubCatagory(request, response);
+catagoryRouter.get("/", async (request: Request, response: Response) => {
+  await catagoryController.getAllCatagory(request, response);
 });
 
 export default catagoryRouter;

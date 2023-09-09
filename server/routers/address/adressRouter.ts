@@ -9,23 +9,21 @@ const addressRouter: Router = Router();
 /**
  * @usage : create new address
  * @url : http://localhost:9000/api/addresses/new
- * @param : name, email, mobile, address, landmark, street, city, state, country, pincode
+ * @param : name, email, mobile, flat, landmark, street, city, state, country, pincode
  * @method : POST
  * @access : PRIVATE
  */
 addressRouter.post(
   "/new",
   [
-    body("name").not().isEmpty().withMessage("name is required"),
-    body("email").not().isEmpty().withMessage("email is required"),
     body("mobile").not().isEmpty().withMessage("mobile is required"),
-    body("address").not().isEmpty().withMessage("address is required"),
+    body("flat").not().isEmpty().withMessage("flat is required"),
     body("landmark").not().isEmpty().withMessage("landmark is required"),
     body("street").not().isEmpty().withMessage("street is required"),
     body("city").not().isEmpty().withMessage("city is required"),
     body("state").not().isEmpty().withMessage("state is required"),
     body("country").not().isEmpty().withMessage("country is required"),
-    body("pincode").not().isEmpty().withMessage("pincode is required"),
+    body("pinCode").not().isEmpty().withMessage("pincode is required"),
   ],
   tokenMiddleware,
   validateForm,
@@ -37,23 +35,21 @@ addressRouter.post(
 /**
  * @usage : update address
  * @url : http://localhost:9000/api/addresses/:addressId
- * @param : name, email, mobile, address, landmark, street, city, state, country, pincode
+ * @param : mobile, flat, landmark, street, city, state, country, pincode
  * @method : PUT
  * @access : PRIVATE
  */
 addressRouter.put(
   "/:addressId",
   [
-    body("name").not().isEmpty().withMessage("name is required"),
-    body("email").not().isEmpty().withMessage("email is required"),
     body("mobile").not().isEmpty().withMessage("mobile is required"),
-    body("address").not().isEmpty().withMessage("address is required"),
+    body("flat").not().isEmpty().withMessage("flat is required"),
     body("landmark").not().isEmpty().withMessage("landmark is required"),
     body("street").not().isEmpty().withMessage("street is required"),
     body("city").not().isEmpty().withMessage("city is required"),
     body("state").not().isEmpty().withMessage("state is required"),
     body("country").not().isEmpty().withMessage("country is required"),
-    body("pincode").not().isEmpty().withMessage("pincode is required"),
+    body("pinCode").not().isEmpty().withMessage("pincode is required"),
   ],
   tokenMiddleware,
   validateForm,

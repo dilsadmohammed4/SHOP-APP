@@ -18,9 +18,7 @@ userRouter.post(
   [
     body("username").not().isEmpty().withMessage("username is required"),
     body("email").isEmail().withMessage("email is required"),
-    body("password")
-      .isStrongPassword()
-      .withMessage("password is required"),
+    body("password").isStrongPassword().withMessage("password is required"),
   ],
   validateForm,
   async (request: Request, response: Response) => {
@@ -39,9 +37,7 @@ userRouter.post(
   "/login",
   [
     body("email").isEmail().withMessage("email is required"),
-    body("password")
-      .isStrongPassword()
-      .withMessage("password is required"),
+    body("password").isStrongPassword().withMessage("password is required"),
   ],
   validateForm,
   async (request: Request, response: Response) => {
@@ -93,17 +89,11 @@ userRouter.post(
 
 userRouter.post(
   "/change-password",
-  [
-    body("password")
-      .not()
-      .isStrongPassword()
-      .withMessage("password is required"),
-  ],
+  [body("password").isStrongPassword().withMessage("password is required")],
   tokenMiddleware,
   validateForm,
   async (request: Request, response: Response) => {
     await userController.changePassword(request, response);
   }
 );
-
 export default userRouter;

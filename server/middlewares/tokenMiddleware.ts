@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
-import { APP_STATUS } from "../constants";
+import { ThrowError } from "../utils/ErrorUtil";
 
 export const tokenMiddleware = async (
   request: Request,
@@ -17,24 +17,12 @@ export const tokenMiddleware = async (
         request.headers["user-data"] = decode.user;
         next();
       } else {
-        return response.status(401).json({
-          status: APP_STATUS.FAILED,
-          data: null,
-          error: "Unauthorized, Invalid token",
-        });
+        return ThrowError(response, 401, "Unauthorized, Invalid token!");
       }
     } else {
-      return response.status(401).json({
-        status: APP_STATUS.FAILED,
-        data: null,
-        error: "No token Provided",
-      });
+      return ThrowError(response, 401, "No token Provided!");
     }
   } catch (error: any) {
-    return response.status(500).json({
-      status: APP_STATUS.FAILED,
-      data: null,
-      error: error.message,
-    });
+    return ThrowError(response, 500, error.message);
   }
 };
