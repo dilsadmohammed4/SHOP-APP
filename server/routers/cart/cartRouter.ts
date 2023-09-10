@@ -35,7 +35,7 @@ cartRouter.post(
  * @method : GET
  * @access : PRIVATE
  */
-cartRouter.post(
+cartRouter.get(
   "/me",
   tokenMiddleware,
   async (request: Request, response: Response) => {

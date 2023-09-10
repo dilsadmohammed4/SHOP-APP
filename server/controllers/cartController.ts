@@ -50,8 +50,34 @@ export const createCart = async (request: Request, response: Response) => {
   }
 };
 
+/**
+ * @usage : get cart info
+ * @url : http://localhost:9000/api/carts/me
+ * @param : np-params
+ * @method : GET
+ * @access : PRIVATE
+ */
 export const getCartInfo = async (request: Request, response: Response) => {
   try {
+    const theUser: any = await UserUtil.getUser(request, response);
+    if (theUser) {
+      const theCart = await CartCollection.find({
+        userObj: new mongoose.Types.ObjectId(theUser._id),
+      })
+        .populate({
+          path: "products.product",
+          strictPopulate: false,
+        })
+        .populate({
+          path: "userObj",
+          strictPopulate: false,
+        });
+      return response.status(200).json({
+        status: APP_STATUS.SUCCESS,
+        data: theCart,
+        msg: "Cart info fetched!",
+      });
+    }
   } catch (error: any) {
     return ThrowError(response, error);
   }

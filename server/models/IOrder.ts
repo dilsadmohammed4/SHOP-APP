@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
-import { ICartProduct } from "./ICart";
+import { INewCartProduct } from "./ICart";
 
 export interface IOrder {
-  products: ICartProduct[];
+  products: INewCartProduct[];
   total: number;
   tax: number;
   grandTotal: number;
