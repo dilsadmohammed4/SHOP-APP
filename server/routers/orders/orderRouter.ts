@@ -1,8 +1,8 @@
-import { Router, Request, Response } from "express";
-import { tokenMiddleware } from "../../middlewares/tokenMiddleware";
+import {Router, Request, Response} from "express";
+import {tokenMiddleware} from "../../middlewares/tokenMiddleware";
 import * as orderController from "../../controllers/orderController";
-import { body } from "express-validator";
-import { validateForm } from "../../middlewares/validateForm";
+import {body} from "express-validator";
+import {validateForm} from "../../middlewares/validateForm";
 
 const orderRouter: Router = Router();
 
@@ -14,19 +14,19 @@ const orderRouter: Router = Router();
  * @access : PRIVATE
  */
 orderRouter.post(
-  "/place",
-  [
-    body("products").not().isEmpty().withMessage("products is required"),
-    body("total").not().isEmpty().withMessage("total is required"),
-    body("tax").not().isEmpty().withMessage("tax is required"),
-    body("grandTotal").not().isEmpty().withMessage("grandTotal is required"),
-    body("paymentType").not().isEmpty().withMessage("paymentType is required"),
-  ],
-  tokenMiddleware,
-  validateForm,
-  async (request: Request, response: Response) => {
-    await orderController.placeOrder(request, response);
-  }
+    "/place",
+    [
+        body("products").not().isEmpty().withMessage("products is required"),
+        body("total").not().isEmpty().withMessage("total is required"),
+        body("tax").not().isEmpty().withMessage("tax is required"),
+        body("grandTotal").not().isEmpty().withMessage("grandTotal is required"),
+        body("paymentType").not().isEmpty().withMessage("paymentType is required"),
+    ],
+    tokenMiddleware,
+    validateForm,
+    async (request: Request, response: Response) => {
+        await orderController.placeOrder(request, response);
+    }
 );
 
 /**
@@ -37,11 +37,11 @@ orderRouter.post(
  * @access : PRIVATE
  */
 orderRouter.get(
-  "/all",
-  tokenMiddleware,
-  async (request: Request, response: Response) => {
-    await orderController.getAllOrders(request, response);
-  }
+    "/all",
+    tokenMiddleware,
+    async (request: Request, response: Response) => {
+        await orderController.getAllOrders(request, response);
+    }
 );
 
 /**
@@ -52,11 +52,11 @@ orderRouter.get(
  * @access : PRIVATE
  */
 orderRouter.get(
-  "/me",
-  tokenMiddleware,
-  async (request: Request, response: Response) => {
-    await orderController.getMyOrders(request, response);
-  }
+    "/me",
+    tokenMiddleware,
+    async (request: Request, response: Response) => {
+        await orderController.getMyOrders(request, response);
+    }
 );
 
 /**
@@ -67,13 +67,13 @@ orderRouter.get(
  * @access : PRIVATE
  */
 orderRouter.post(
-  "/:orderId",
-  [body("orderStatus").not().isEmpty().withMessage("orderStatus is required")],
-  tokenMiddleware,
-  validateForm,
-  async (request: Request, response: Response) => {
-    await orderController.updateOrderStatus(request, response);
-  }
+    "/:orderId",
+    [body("orderStatus").not().isEmpty().withMessage("orderStatus is required")],
+    tokenMiddleware,
+    validateForm,
+    async (request: Request, response: Response) => {
+        await orderController.updateOrderStatus(request, response);
+    }
 );
 
 export default orderRouter;

@@ -1,8 +1,8 @@
-import { Router, Request, Response } from "express";
-import { tokenMiddleware } from "../../middlewares/tokenMiddleware";
+import {Router, Request, Response} from "express";
+import {tokenMiddleware} from "../../middlewares/tokenMiddleware";
 import * as cartController from "../../controllers/cartController";
-import { body } from "express-validator";
-import { validateForm } from "../../middlewares/validateForm";
+import {body} from "express-validator";
+import {validateForm} from "../../middlewares/validateForm";
 
 const cartRouter: Router = Router();
 
@@ -14,18 +14,18 @@ const cartRouter: Router = Router();
  * @access : PRIVATE
  */
 cartRouter.post(
-  "/",
-  [
-    body("products").not().isEmpty().withMessage("products is required"),
-    body("total").not().isEmpty().withMessage("total is required"),
-    body("tax").not().isEmpty().withMessage("tax is required"),
-    body("grandTotal").not().isEmpty().withMessage("grandTotal is required"),
-  ],
-  tokenMiddleware,
-  validateForm,
-  async (request: Request, response: Response) => {
-    await cartController.createCart(request, response);
-  }
+    "/",
+    [
+        body("products").not().isEmpty().withMessage("products is required"),
+        body("total").not().isEmpty().withMessage("total is required"),
+        body("tax").not().isEmpty().withMessage("tax is required"),
+        body("grandTotal").not().isEmpty().withMessage("grandTotal is required"),
+    ],
+    tokenMiddleware,
+    validateForm,
+    async (request: Request, response: Response) => {
+        await cartController.createCart(request, response);
+    }
 );
 
 /**
@@ -36,11 +36,11 @@ cartRouter.post(
  * @access : PRIVATE
  */
 cartRouter.get(
-  "/me",
-  tokenMiddleware,
-  async (request: Request, response: Response) => {
-    await cartController.getCartInfo(request, response);
-  }
+    "/me",
+    tokenMiddleware,
+    async (request: Request, response: Response) => {
+        await cartController.getCartInfo(request, response);
+    }
 );
 
 export default cartRouter;

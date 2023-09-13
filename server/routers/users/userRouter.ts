@@ -1,8 +1,8 @@
-import { Router, Request, Response } from "express";
-import { tokenMiddleware } from "../../middlewares/tokenMiddleware";
+import {Router, Request, Response} from "express";
+import {tokenMiddleware} from "../../middlewares/tokenMiddleware";
 import * as userController from "../../controllers/userController";
-import { body } from "express-validator";
-import { validateForm } from "../../middlewares/validateForm";
+import {body} from "express-validator";
+import {validateForm} from "../../middlewares/validateForm";
 
 const userRouter: Router = Router();
 
@@ -14,16 +14,16 @@ const userRouter: Router = Router();
  * @access : PUBLIC
  */
 userRouter.post(
-  "/register",
-  [
-    body("username").not().isEmpty().withMessage("username is required"),
-    body("email").isEmail().withMessage("email is required"),
-    body("password").isStrongPassword().withMessage("password is required"),
-  ],
-  validateForm,
-  async (request: Request, response: Response) => {
-    await userController.registerUser(request, response);
-  }
+    "/register",
+    [
+        body("username").not().isEmpty().withMessage("username is required"),
+        body("email").isEmail().withMessage("email is required"),
+        body("password").isStrongPassword().withMessage("password is required"),
+    ],
+    validateForm,
+    async (request: Request, response: Response) => {
+        await userController.registerUser(request, response);
+    }
 );
 
 /**
@@ -34,15 +34,15 @@ userRouter.post(
  * @access : PUBLIC
  */
 userRouter.post(
-  "/login",
-  [
-    body("email").isEmail().withMessage("email is required"),
-    body("password").isStrongPassword().withMessage("password is required"),
-  ],
-  validateForm,
-  async (request: Request, response: Response) => {
-    await userController.loginUser(request, response);
-  }
+    "/login",
+    [
+        body("email").isEmail().withMessage("email is required"),
+        body("password").isStrongPassword().withMessage("password is required"),
+    ],
+    validateForm,
+    async (request: Request, response: Response) => {
+        await userController.loginUser(request, response);
+    }
 );
 
 /**
@@ -54,11 +54,11 @@ userRouter.post(
  */
 
 userRouter.get(
-  "/me",
-  tokenMiddleware,
-  async (request: Request, response: Response) => {
-    await userController.getUsersData(request, response);
-  }
+    "/me",
+    tokenMiddleware,
+    async (request: Request, response: Response) => {
+        await userController.getUsersData(request, response);
+    }
 );
 
 /**
@@ -70,13 +70,13 @@ userRouter.get(
  */
 
 userRouter.post(
-  "/profile",
-  [body("imageUrl").not().isEmpty().withMessage("imageUrl is required")],
-  tokenMiddleware,
-  validateForm,
-  async (request: Request, response: Response) => {
-    await userController.updateProfilePicture(request, response);
-  }
+    "/profile",
+    [body("imageUrl").not().isEmpty().withMessage("imageUrl is required")],
+    tokenMiddleware,
+    validateForm,
+    async (request: Request, response: Response) => {
+        await userController.updateProfilePicture(request, response);
+    }
 );
 
 /**
@@ -88,12 +88,12 @@ userRouter.post(
  */
 
 userRouter.post(
-  "/change-password",
-  [body("password").isStrongPassword().withMessage("password is required")],
-  tokenMiddleware,
-  validateForm,
-  async (request: Request, response: Response) => {
-    await userController.changePassword(request, response);
-  }
+    "/change-password",
+    [body("password").isStrongPassword().withMessage("password is required")],
+    tokenMiddleware,
+    validateForm,
+    async (request: Request, response: Response) => {
+        await userController.changePassword(request, response);
+    }
 );
 export default userRouter;

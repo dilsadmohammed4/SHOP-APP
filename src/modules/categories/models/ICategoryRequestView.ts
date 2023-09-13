@@ -1,4 +1,4 @@
 export interface ICategoryRequestView {
-  name: string;
-  description: string;
+    name: string;
+    description: string;
 }
