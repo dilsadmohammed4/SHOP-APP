@@ -2,6 +2,7 @@ import {createAsyncThunk} from "@reduxjs/toolkit";
 import {OrderService} from "../../modules/orders/services/OrderService";
 import {IOrderRequestView} from "../../modules/orders/models/IOrderRequestView";
 import {IOrderResponseView} from "../../modules/orders/models/IOrderResponseView";
+import {AuthUtils} from "../../utils/AuthUtils";
 
 export const placeAnOrderAction: any = createAsyncThunk(
     "orders/placeAnOrderAction",
@@ -10,13 +11,13 @@ export const placeAnOrderAction: any = createAsyncThunk(
             order: IOrderRequestView;
         },
         {rejectWithValue}
-    ): Promise<
-        { data: IOrderRequestView; msg: string; status: string } | any
-    > => {
+    ): Promise<{ data: IOrderRequestView; msg: string; status: string } | any> => {
         try {
-            const {order} = payload;
-            const response = await OrderService.placeAnOrder(order);
-            return response.data;
+            if (AuthUtils.isSetTokenToRequestHeader()) {
+                const {order} = payload;
+                const response = await OrderService.placeAnOrder(order);
+                return response.data;
+            }
         } catch (error: any) {
             if (!error.response) {
                 throw error;
@@ -31,12 +32,12 @@ export const getAllOrdersAction: any = createAsyncThunk(
     async (
         payload: {},
         {rejectWithValue}
-    ): Promise<
-        { data: IOrderResponseView[]; msg: string; status: string } | any
-    > => {
+    ): Promise<{ data: IOrderResponseView[]; msg: string; status: string } | any> => {
         try {
-            const response = await OrderService.getAllOrders();
-            return response.data;
+            if (AuthUtils.isSetTokenToRequestHeader()) {
+                const response = await OrderService.getAllOrders();
+                return response.data;
+            }
         } catch (error: any) {
             if (!error.response) {
                 throw error;
@@ -51,12 +52,12 @@ export const getMyOrdersAction: any = createAsyncThunk(
     async (
         payload: {},
         {rejectWithValue}
-    ): Promise<
-        { data: IOrderResponseView[]; msg: string; status: string } | any
-    > => {
+    ): Promise<{ data: IOrderResponseView[]; msg: string; status: string } | any> => {
         try {
-            const response = await OrderService.getMyOrders();
-            return response.data;
+            if (AuthUtils.isSetTokenToRequestHeader()) {
+                const response = await OrderService.getMyOrders();
+                return response.data;
+            }
         } catch (error: any) {
             if (!error.response) {
                 throw error;
@@ -74,16 +75,16 @@ export const updateOrderStatusAction: any = createAsyncThunk(
             orderId: string;
         },
         {rejectWithValue}
-    ): Promise<
-        { data: IOrderResponseView[]; msg: string; status: string } | any
-    > => {
+    ): Promise<{ data: IOrderResponseView[]; msg: string; status: string } | any> => {
         try {
-            const {orderStatus, orderId} = payload;
-            const response = await OrderService.updateOrderStatus(
-                orderStatus,
-                orderId
-            );
-            return response.data;
+            if (AuthUtils.isSetTokenToRequestHeader()) {
+                const {orderStatus, orderId} = payload;
+                const response = await OrderService.updateOrderStatus(
+                    orderStatus,
+                    orderId
+                );
+                return response.data;
+            }
         } catch (error: any) {
             if (!error.response) {
                 throw error;

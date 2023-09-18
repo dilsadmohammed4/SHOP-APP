@@ -1,6 +1,7 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import {UserService} from "../../modules/users/services/UserService";
 import {IUserView} from "../../modules/users/models/IUserView";
+import {AuthUtils} from "../../utils/AuthUtils";
 
 export const registerUserAction: any = createAsyncThunk(
     "users/registerUserAction",
@@ -30,9 +31,7 @@ export const loginUserAction: any = createAsyncThunk(
             user: IUserView;
         },
         {rejectWithValue}
-    ): Promise<
-        { data: IUserView; msg: string; status: string; token: string } | any
-    > => {
+    ): Promise<{ data: IUserView; msg: string; status: string; token: string } | any> => {
         try {
             const {user} = payload;
             const response = await UserService.loginUser(user);
@@ -53,8 +52,10 @@ export const getUserDataAction: any = createAsyncThunk(
         {rejectWithValue}
     ): Promise<{ data: IUserView; msg: string; status: string } | any> => {
         try {
-            const response = await UserService.getUserData();
-            return response.data;
+            if (AuthUtils.isSetTokenToRequestHeader()) {
+                const response = await UserService.getUserData();
+                return response.data;
+            }
         } catch (error: any) {
             if (!error.response) {
                 throw error;
@@ -73,9 +74,11 @@ export const updateProfilePictureAction: any = createAsyncThunk(
         {rejectWithValue}
     ): Promise<{ data: IUserView; msg: string; status: string } | any> => {
         try {
-            const {imageUrl} = payload;
-            const response = await UserService.updateProfilePicture(imageUrl);
-            return response.data;
+            if (AuthUtils.isSetTokenToRequestHeader()) {
+                const {imageUrl} = payload;
+                const response = await UserService.updateProfilePicture(imageUrl);
+                return response.data;
+            }
         } catch (error: any) {
             if (!error.response) {
                 throw error;
@@ -94,9 +97,11 @@ export const changePasswordAction: any = createAsyncThunk(
         {rejectWithValue}
     ): Promise<{ data: IUserView; msg: string; status: string } | any> => {
         try {
-            const {password} = payload;
-            const response = await UserService.changePassword(password);
-            return response.data;
+            if (AuthUtils.isSetTokenToRequestHeader()) {
+                const {password} = payload;
+                const response = await UserService.changePassword(password);
+                return response.data;
+            }
         } catch (error: any) {
             if (!error.response) {
                 throw error;

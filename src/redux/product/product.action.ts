@@ -3,6 +3,7 @@ import {IProductRequestView} from "../../modules/products/models/IProductRequest
 import {ProductService} from "../../modules/products/services/ProductService";
 import {IProductView} from "../../modules/products/models/IProductView";
 import {IProductResponseView} from "../../modules/products/models/IProductResponseView";
+import {AuthUtils} from "../../utils/AuthUtils";
 
 export const createProductAction: any = createAsyncThunk(
     "products/createProductAction",
@@ -13,9 +14,11 @@ export const createProductAction: any = createAsyncThunk(
         {rejectWithValue}
     ): Promise<{ data: IProductView; msg: string; status: string } | any> => {
         try {
-            const {product} = payload;
-            const response = await ProductService.createProduct(product);
-            return response.data;
+            if (AuthUtils.isSetTokenToRequestHeader()) {
+                const {product} = payload;
+                const response = await ProductService.createProduct(product);
+                return response.data;
+            }
         } catch (error: any) {
             if (!error.response) {
                 throw error;
@@ -35,9 +38,11 @@ export const updateProductAction: any = createAsyncThunk(
         {rejectWithValue}
     ): Promise<{ data: IProductView; msg: string; status: string } | any> => {
         try {
-            const {product, productId} = payload;
-            const response = await ProductService.updateProduct(product, productId);
-            return response.data;
+            if (AuthUtils.isSetTokenToRequestHeader()) {
+                const {product, productId} = payload;
+                const response = await ProductService.updateProduct(product, productId);
+                return response.data;
+            }
         } catch (error: any) {
             if (!error.response) {
                 throw error;
@@ -52,12 +57,12 @@ export const getAllProductsAction: any = createAsyncThunk(
     async (
         payload: {},
         {rejectWithValue}
-    ): Promise<
-        { data: IProductResponseView[]; msg: string; status: string } | any
-    > => {
+    ): Promise<{ data: IProductResponseView[]; msg: string; status: string } | any> => {
         try {
-            const response = await ProductService.getAllProducts();
-            return response.data;
+            if (AuthUtils.isSetTokenToRequestHeader()) {
+                const response = await ProductService.getAllProducts();
+                return response.data;
+            }
         } catch (error: any) {
             if (!error.response) {
                 throw error;
@@ -74,13 +79,13 @@ export const getAProductAction: any = createAsyncThunk(
             productId: string;
         },
         {rejectWithValue}
-    ): Promise<
-        { data: IProductResponseView; msg: string; status: string } | any
-    > => {
+    ): Promise<{ data: IProductResponseView; msg: string; status: string } | any> => {
         try {
-            const {productId} = payload;
-            const response = await ProductService.getAProduct(productId);
-            return response.data;
+            if (AuthUtils.isSetTokenToRequestHeader()) {
+                const {productId} = payload;
+                const response = await ProductService.getAProduct(productId);
+                return response.data;
+            }
         } catch (error: any) {
             if (!error.response) {
                 throw error;
@@ -99,9 +104,11 @@ export const deleteProductAction: any = createAsyncThunk(
         {rejectWithValue}
     ): Promise<{ data: IProductView; msg: string; status: string } | any> => {
         try {
-            const {productId} = payload;
-            const response = await ProductService.deleteProduct(productId);
-            return response.data;
+            if (AuthUtils.isSetTokenToRequestHeader()) {
+                const {productId} = payload;
+                const response = await ProductService.deleteProduct(productId);
+                return response.data;
+            }
         } catch (error: any) {
             if (!error.response) {
                 throw error;
@@ -118,15 +125,15 @@ export const getAllProductsWithCategoryIdAction: any = createAsyncThunk(
             categoryId: string;
         },
         {rejectWithValue}
-    ): Promise<
-        { data: IProductResponseView[]; msg: string; status: string } | any
-    > => {
+    ): Promise<{ data: IProductResponseView[]; msg: string; status: string } | any> => {
         try {
-            const {categoryId} = payload;
-            const response = await ProductService.getAllProductsWithCategoryId(
-                categoryId
-            );
-            return response.data;
+            if (AuthUtils.isSetTokenToRequestHeader()) {
+                const {categoryId} = payload;
+                const response = await ProductService.getAllProductsWithCategoryId(
+                    categoryId
+                );
+                return response.data;
+            }
         } catch (error: any) {
             if (!error.response) {
                 throw error;

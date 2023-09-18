@@ -1,6 +1,7 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import {IAddressView} from "../../modules/users/models/IAddressView";
 import {AddressService} from "../../modules/users/services/AddressService";
+import {AuthUtils} from "../../utils/AuthUtils";
 
 export const createNewAddressAction: any = createAsyncThunk(
     "addresses/createNewAddressAction",
@@ -11,9 +12,11 @@ export const createNewAddressAction: any = createAsyncThunk(
         {rejectWithValue}
     ): Promise<{ data: IAddressView; msg: string; status: string } | any> => {
         try {
-            const {address} = payload;
-            const response = await AddressService.createNewAddress(address);
-            return response.data;
+            if (AuthUtils.isSetTokenToRequestHeader()) {
+                const {address} = payload;
+                const response = await AddressService.createNewAddress(address);
+                return response.data;
+            }
         } catch (error: any) {
             if (!error.response) {
                 throw error;
@@ -33,9 +36,11 @@ export const updateAddressAction: any = createAsyncThunk(
         {rejectWithValue}
     ): Promise<{ data: IAddressView; msg: string; status: string } | any> => {
         try {
-            const {address, addressId} = payload;
-            const response = await AddressService.updateAddress(address, addressId);
-            return response.data;
+            if (AuthUtils.isSetTokenToRequestHeader()) {
+                const {address, addressId} = payload;
+                const response = await AddressService.updateAddress(address, addressId);
+                return response.data;
+            }
         } catch (error: any) {
             if (!error.response) {
                 throw error;
@@ -52,8 +57,10 @@ export const getAddressInfoAction: any = createAsyncThunk(
         {rejectWithValue}
     ): Promise<{ data: IAddressView; msg: string; status: string } | any> => {
         try {
-            const response = await AddressService.getAddressInfo();
-            return response.data;
+            if (AuthUtils.isSetTokenToRequestHeader()) {
+                const response = await AddressService.getAddressInfo();
+                return response.data;
+            }
         } catch (error: any) {
             if (!error.response) {
                 throw error;
@@ -72,9 +79,11 @@ export const deleteAddressAction: any = createAsyncThunk(
         {rejectWithValue}
     ): Promise<{ data: IAddressView; msg: string; status: string } | any> => {
         try {
-            const {addressId} = payload;
-            const response = await AddressService.deleteAddress(addressId);
-            return response.data;
+            if (AuthUtils.isSetTokenToRequestHeader()) {
+                const {addressId} = payload;
+                const response = await AddressService.deleteAddress(addressId);
+                return response.data;
+            }
         } catch (error: any) {
             if (!error.response) {
                 throw error;
