@@ -9,7 +9,7 @@ export const HomePage: React.FC = () => {
                     <div className="d-flex flex-column justify-content-center align-items-center text-center h-100">
                         <p className="display-1 text-success">REACT E-COMMERCE 2023</p>
                         <div>
-                            <Link to={'/product/fashion'} className="btn btn-warning">
+                            <Link to={'/products/fashion'} className="btn btn-warning">
                                 <i className="bi bi-phone"> Products</i>
                             </Link>
                             <Link to={'/users/login'} className="btn btn-success ms-2">

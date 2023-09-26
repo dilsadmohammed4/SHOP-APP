@@ -12,5 +12,5 @@ export interface ISubCategoryView {
     _id: string;
     name: string;
     description: string;
-    __v: number;
+    __v?: number;
 }

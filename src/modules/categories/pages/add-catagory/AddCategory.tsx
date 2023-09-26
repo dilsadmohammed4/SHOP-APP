@@ -1,5 +1,12 @@
+import {MainNavbar} from "../../../layouts/pages/navbar/MainNavbar";
+import {LayoutHeading} from "../../../layouts/components/layout-heading/LayoutHeading";
+import React from "react";
+
 export const AddCategory = () => {
     return (
-        <>AddCategory</>
+        <>
+            <MainNavbar/>
+            <LayoutHeading heading={'Add Categories'}/>
+        </>
     );
 };
