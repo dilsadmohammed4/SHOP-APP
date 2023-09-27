@@ -7,6 +7,7 @@ import {IUserView} from "../../modules/users/models/IUserView";
 import {TokenUtil} from "../../utils/TokenUtil";
 import {ToastUtils} from "../../utils/ToastUtils";
 import * as userAction from "../user/user.action";
+import {IAddressView} from "../../modules/users/models/IAddressView";
 
 export const userFeatureKey = "userFeature";
 
@@ -16,6 +17,7 @@ export interface InitialState {
     user: IUserView;
     token: string;
     isAuthenticated: boolean;
+    address: IAddressView;
 }
 
 const initialState: InitialState = {
@@ -24,6 +26,7 @@ const initialState: InitialState = {
     user: {} as IUserView,
     token: "",
     isAuthenticated: false,
+    address: {} as IAddressView
 };
 
 export const userSlice = createSlice({
@@ -35,7 +38,7 @@ export const userSlice = createSlice({
             state.token = "";
             TokenUtil.deleteToken();
             state.isAuthenticated = false;
-            ToastUtils.displayInfoToast("Logged out!");
+            ToastUtils.displaySuccessToast("Logged out!");
         },
     },
     extraReducers: (builder) => {
@@ -52,7 +55,7 @@ export const userSlice = createSlice({
             })
             .addCase(userAction.registerUserAction.rejected, (state, action) => {
                 state.loading = false;
-                ToastUtils.displayErrorToast("Registration is failed!");
+                ToastUtils.displayErrorToast(action.payload.error);
                 if (isRejectedWithValue(action)) {
                     state.errorMessage = action.error;
                 }
@@ -77,9 +80,9 @@ export const userSlice = createSlice({
                 state.isAuthenticated = false;
                 state.user = {} as IUserView;
                 TokenUtil.deleteToken();
-                ToastUtils.displayErrorToast("Login is failed!");
+                ToastUtils.displayErrorToast(action.payload.error);
                 if (isRejectedWithValue(action)) {
-                    state.errorMessage = action.error;
+                    state.errorMessage = action.payload.msg;
                 }
             });
 
@@ -94,7 +97,6 @@ export const userSlice = createSlice({
                 state.loading = false;
                 state.isAuthenticated = true;
                 state.user = action.payload.data;
-                ToastUtils.displaySuccessToast("User fetched!");
             })
             .addCase(userAction.getUserDataAction.rejected, (state, action) => {
                 state.loading = false;
@@ -154,6 +156,95 @@ export const userSlice = createSlice({
                 state.loading = false;
                 state.user = {} as IUserView;
                 ToastUtils.displayErrorToast("Password changed failed!");
+                if (isRejectedWithValue(action)) {
+                    state.errorMessage = action.error;
+                }
+            });
+        /**
+         *Create new address
+         */
+        builder
+            .addCase(
+                userAction.createNewAddressAction.pending,
+                (state, action) => {
+                    state.loading = true;
+                }
+            )
+            .addCase(
+                userAction.createNewAddressAction.fulfilled,
+                (state, action) => {
+                    state.loading = false;
+                    state.address = action.payload.data;
+                    ToastUtils.displaySuccessToast(action.payload.msg);
+                }
+            )
+            .addCase(
+                userAction.createNewAddressAction.rejected,
+                (state, action) => {
+                    state.loading = false;
+                    ToastUtils.displayErrorToast("Address creation is failed!");
+                    if (isRejectedWithValue(action)) {
+                        state.errorMessage = action.error;
+                    }
+                }
+            );
+
+        /**
+         *Update address
+         */
+        builder
+            .addCase(userAction.updateAddressAction.pending, (state, action) => {
+                state.loading = true;
+            })
+            .addCase(userAction.updateAddressAction.fulfilled, (state, action) => {
+                state.loading = false;
+                state.address = action.payload.data;
+                ToastUtils.displaySuccessToast(action.payload.msg);
+            })
+            .addCase(userAction.updateAddressAction.rejected, (state, action) => {
+                state.loading = false;
+                ToastUtils.displayErrorToast("Unable to update address!");
+                if (isRejectedWithValue(action)) {
+                    state.errorMessage = action.error;
+                }
+            });
+
+        /**
+         *Get address
+         */
+        builder
+            .addCase(userAction.getAddressInfoAction.pending, (state, action) => {
+                state.loading = true;
+            })
+            .addCase(
+                userAction.getAddressInfoAction.fulfilled,
+                (state, action) => {
+                    state.loading = false;
+                    state.address = action.payload.data;
+                }
+            )
+            .addCase(userAction.getAddressInfoAction.rejected, (state, action) => {
+                state.loading = false;
+                ToastUtils.displayErrorToast("Unable to get the address!");
+                if (isRejectedWithValue(action)) {
+                    state.errorMessage = action.error;
+                }
+            });
+        /**
+         *Delete address
+         */
+        builder
+            .addCase(userAction.deleteAddressAction.pending, (state, action) => {
+                state.loading = true;
+            })
+            .addCase(userAction.deleteAddressAction.fulfilled, (state, action) => {
+                state.loading = false;
+                state.address = {} as IAddressView;
+                ToastUtils.displayInfoToast(action.payload.msg);
+            })
+            .addCase(userAction.deleteAddressAction.rejected, (state, action) => {
+                state.loading = false;
+                ToastUtils.displayErrorToast("Unable to delete the address!");
                 if (isRejectedWithValue(action)) {
                     state.errorMessage = action.error;
                 }

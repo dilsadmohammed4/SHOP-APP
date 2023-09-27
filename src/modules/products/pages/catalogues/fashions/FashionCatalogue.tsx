@@ -18,6 +18,7 @@ export const FashionCatalogue = () => {
             description: "Kids Wear"
         }
     ]);
+
     return (
         <>
             <MainNavbar/>

@@ -47,7 +47,6 @@ export const UserRegister: React.FC = () => {
             <LayoutHeading icon={"bi-person-plus-fill"} heading={'Register'}/>
             <Container>
                 <Row>
-                    <pre>{JSON.stringify(user)}</pre>
                     <Col xs={4}>
                         <Form noValidate validated={validated} onSubmit={event => handleSubmit(event)}>
                             <Form.Group className="mb-2">
@@ -58,7 +57,6 @@ export const UserRegister: React.FC = () => {
                                     name={"username"}
                                     onChange={e => updateInput(e)}
                                     placeholder="Username" type="text"/>
-                                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                 <Form.Control.Feedback type="invalid">Please choose a valid
                                     username.</Form.Control.Feedback>
                             </Form.Group>
@@ -69,24 +67,22 @@ export const UserRegister: React.FC = () => {
                                     name={"email"}
                                     onChange={e => updateInput(e)}
                                     placeholder="Email" type="email"/>
-                                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                 <Form.Control.Feedback type="invalid">Please choose a valid
                                     email.</Form.Control.Feedback>
                             </Form.Group>
                             <Form.Group className="mb-2">
                                 <Form.Control
                                     required
-                                    pattern={"(?!.*\\s)(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[~`!@#$%^&*()--+={}\\[\\]|\\\\:;\"'<>,.?/_]).{6,}"}
+                                    pattern={"^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\\s).{8,}$"}
                                     value={user.password}
                                     name={"password"}
                                     onChange={e => updateInput(e)}
                                     placeholder="Password" type="password"/>
-                                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                 <Form.Control.Feedback type="invalid">Please choose a valid
                                     password.</Form.Control.Feedback>
                             </Form.Group>
-                            <Button variant="success" type="submit">Signup</Button>
-                            <Link to={"/"} className="btn btn-dark ms-2">Cancel</Link>
+                            <Button variant="success" className="me-2" type="submit">Signup</Button>
+                            <Link to={"/"} className="btn btn-dark">Cancel</Link>
                         </Form>
                         <small>
                             Already have an account? <Link className="text-primary fw-bold text-decoration-none"

@@ -31,7 +31,7 @@ export class AddressService {
         address: IAddressView,
         addressId: string
     ): Promise<{ data: { data: IAddressView; msg: string; status: string } }> {
-        const dataUrl: string = `${this.serverUrl}/api/addresses/new/${addressId}`;
+        const dataUrl: string = `${this.serverUrl}/api/addresses/${addressId}`;
         return axios.put(dataUrl, address);
     }
 

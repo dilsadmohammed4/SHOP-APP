@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import "./App.css";
 import {ToastConfiguration} from "./modules/ui/components/toast-config/ToastConfiguration";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
@@ -18,8 +18,19 @@ import {UserProfile} from "./modules/users/pages/user-profile/UserProfile";
 import {UserRegister} from "./modules/users/pages/user-register/UserRegister";
 import {ChangePassword} from "./modules/users/pages/user-password/ChangePassword";
 import {MyOrder} from "./modules/orders/pages/MyOrder";
+import * as userAction from "./redux/user/user.action";
+import {TokenUtil} from "./utils/TokenUtil";
+import {AppDispatch, useAppDispatch} from "./redux/store";
+import {UserAddShippingAddress} from "./modules/users/pages/user-shipping-address/UserAddShippingAddress";
+import {UserEditShippingAddress} from "./modules/users/pages/user-shipping-address/UserEditShippingAddress";
 
 const App = () => {
+    const dispatch: AppDispatch = useAppDispatch();
+    useEffect(() => {
+        if (TokenUtil.isLoggedIn()) {
+            dispatch(userAction.getUserDataAction());
+        }
+    }, []);
     return (
         <>
 
@@ -41,6 +52,8 @@ const App = () => {
                     <Route path={'/users/change-password'} element={<ChangePassword/>}/>
                     <Route path={'/users/orders/me'} element={<MyOrder/>}/>
                     <Route path={'/users/login'} element={<UserLogin/>}/>
+                    <Route path={'/users/add-shipping-address'} element={<UserAddShippingAddress/>}/>
+                    <Route path={'/users/edit-shipping-address/:addressId'} element={<UserEditShippingAddress/>}/>
                     <Route path={'*'} element={<PageNotFound/>}/>
                 </Routes>
             </BrowserRouter>
