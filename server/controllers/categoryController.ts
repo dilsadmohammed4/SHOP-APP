@@ -64,27 +64,26 @@ export const createSubCategory = async (
         const {name, description} = request.body;
         const theUser: any = await UserUtil.getUser(request, response);
         if (theUser) {
-            let theCategory = await CategoryCollection.findById(mongoCategoryId);
-            if (!theCategory) {
-                return ThrowError(response, 404, "Category is already exits!");
-            }
-            let theSub = await subCategoryCollection.findOne({name: name});
-            if (theSub) {
-                ThrowError(response, 401, "Subcategory is already exits!");
-            }
-            let theSubCategory = await new subCategoryCollection({
-                name: name,
-                description: description,
-            }).save();
-            if (theSubCategory) {
-                theCategory.subCategories.push(theSubCategory);
-                let categoryObj = await theCategory.save();
-                if (categoryObj) {
-                    return response.status(200).json({
-                        status: APP_STATUS.SUCCESS,
-                        data: categoryObj,
-                        msg: "Subcategory added!",
-                    });
+            let theCategory: any = await CategoryCollection.findById(mongoCategoryId);
+            if (theCategory) {
+                let theSubCategory: any = await subCategoryCollection.findOne({name: name});
+                if (theSubCategory) {
+                    ThrowError(response, 401, "Subcategory is already exits!");
+                }
+                let theSub = await new subCategoryCollection({
+                    name: name,
+                    description: description,
+                }).save();
+                if (theSub) {
+                    theCategory.subCategories.push(theSub);
+                    let categoryObj: any = await theCategory.save();
+                    if (categoryObj) {
+                        return response.status(200).json({
+                            status: APP_STATUS.SUCCESS,
+                            data: categoryObj,
+                            msg: "Subcategory added!",
+                        });
+                    }
                 }
             }
         }

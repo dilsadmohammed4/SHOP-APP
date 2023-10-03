@@ -5,6 +5,7 @@ import * as userReducer from "../../../../redux/user/user.slice";
 import {useSelector} from "react-redux";
 import {AppDispatch, RootState, useAppDispatch} from "../../../../redux/store";
 import {TokenUtil} from "../../../../utils/TokenUtil";
+import * as cartReducer from "../../../../redux/cart/cart.slice";
 
 export const MainNavbar: React.FC = () => {
     const navigate = useNavigate();
@@ -22,6 +23,10 @@ export const MainNavbar: React.FC = () => {
         })
         navigateTo("/");
     }
+    const cartReduxState: cartReducer.InitialState = useSelector((store: RootState) => {
+        return store[cartReducer.cartFeatureKey];
+    })
+    const {cartProduct} = cartReduxState;
     const {user, isAuthenticated} = userState;
     return (
         <>
@@ -66,7 +71,7 @@ export const MainNavbar: React.FC = () => {
                                     <Nav className="">
                                         <Link to={"/cart/list"} className="nav-link pe-3">
                                             <i className="bi bi-cart-fill">
-                                                <span className="cart-count">{0}</span>
+                                                <span className="cart-count">{cartProduct?.products.length}</span>
                                             </i>
                                         </Link>
                                     </Nav>

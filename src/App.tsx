@@ -23,6 +23,7 @@ import {TokenUtil} from "./utils/TokenUtil";
 import {AppDispatch, useAppDispatch} from "./redux/store";
 import {UserAddShippingAddress} from "./modules/users/pages/user-shipping-address/UserAddShippingAddress";
 import {UserEditShippingAddress} from "./modules/users/pages/user-shipping-address/UserEditShippingAddress";
+import {ViewProduct} from "./modules/products/pages/view-products/ViewProduct";
 
 const App = () => {
     const dispatch: AppDispatch = useAppDispatch();
@@ -43,6 +44,7 @@ const App = () => {
                     <Route path={'/products/household'} element={<HouseholdCatalogue/>}/>
                     <Route path={'/products/upload'} element={<UploadProduct/>}/>
                     <Route path={'/products/admin'} element={<ManageProduct/>}/>
+                    <Route path={'/products/view/:categoryName/:productId'} element={<ViewProduct/>}/>
                     <Route path={'/categories/add'} element={<AddCategory/>}/>
                     <Route path={'/orders/admin'} element={<ManageOrder/>}/>
                     <Route path={'/cart/list'} element={<CartPage/>}/>

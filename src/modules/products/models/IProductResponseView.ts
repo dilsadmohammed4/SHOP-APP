@@ -5,6 +5,7 @@ export interface IProductResponseView {
     imageUrl: string;
     brand: string;
     price: number;
+    count: number;
     quantity: number;
     sold: number;
     userObj: userObj;

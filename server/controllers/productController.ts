@@ -143,7 +143,7 @@ export const getAllProducts = async (request: Request, response: Response) => {
             return response.status(200).json({
                 status: APP_STATUS.SUCCESS,
                 data: theProducts,
-                msg: "Product fetched!",
+                msg: "Product  all fetched!",
             });
         }
     } catch (error: any) {
@@ -185,7 +185,7 @@ export const getProduct = async (request: Request, response: Response) => {
             return response.status(200).json({
                 status: APP_STATUS.SUCCESS,
                 data: theProduct,
-                msg: "Product fetched!",
+                msg: "A Product fetched!",
             });
         }
     } catch (error: any) {
@@ -273,7 +273,7 @@ export const getAllProductWithCategoryId = async (
             return response.status(200).json({
                 status: APP_STATUS.SUCCESS,
                 data: products,
-                msg: "Product fetched!",
+                msg: "Product fetched by CategoryId!",
             });
         }
     } catch (error: any) {

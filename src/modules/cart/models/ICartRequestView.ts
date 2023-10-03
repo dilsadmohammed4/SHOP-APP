@@ -1,9 +1,9 @@
 export interface ICartRequestView {
-    products?: CartProductsEntity[] | null;
+    products: CartProductsEntity[];
     total: number;
     tax: number;
     grandTotal: number;
-    userObj: string;
+    userObj?: string;
 }
 
 export interface CartProductsEntity {

@@ -20,15 +20,15 @@ export const ProductSidebar: React.FC<IProps> = ({subCategories, filteredTheProd
     }
     const updateChecks = (event: any, id: string | undefined) => {
         if (id) {
-            // setSubCategories(subCategories.map(item => {
-            //     if (item._id === id) {
-            //         return {
-            //             ...item,
-            //             isChecked: event.target.checked
-            //         }
-            //     }
-            //     return item;
-            // }))
+            setSubCategories(subCategories.map(item => {
+                if (item._id === id) {
+                    return {
+                        ...item,
+                        isChecked: event.target.checked
+                    }
+                }
+                return item;
+            }))
         }
     }
 
@@ -52,7 +52,7 @@ export const ProductSidebar: React.FC<IProps> = ({subCategories, filteredTheProd
                                         <>
                                             <ListGroup.Item key={subCategory._id}>
                                                 <Form.Check
-                                                    checked={false}
+                                                    checked={subCategory.isChecked}
                                                     onChange={e => updateChecks(e, subCategory._id)}
                                                     type={'checkbox'}
                                                     label={subCategory.name}

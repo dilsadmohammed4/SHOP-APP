@@ -9,8 +9,9 @@ export interface ICategoryResponseView {
 }
 
 export interface ISubCategoryView {
-    _id: string;
+    _id?: string;
     name: string;
     description: string;
     __v?: number;
+    isChecked?: boolean
 }

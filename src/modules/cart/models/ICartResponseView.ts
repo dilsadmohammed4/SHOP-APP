@@ -1,6 +1,6 @@
 export interface ICartResponseView {
     _id: string;
-    products?: CartProductsEntity[] | null;
+    products: CartProductsEntity[];
     total: string;
     tax: string;
     grandTotal: string;
@@ -9,12 +9,34 @@ export interface ICartResponseView {
     updatedAt: string;
     __v: number;
 }
+export interface CartNewResponseView {
+    _id?: string;
+    products: CartProductsEntity[];
+    total: string;
+    tax: string;
+    grandTotal: string;
+    userObj: CartUserObj;
+    createdAt?: string;
+    updatedAt?: string;
+    __v?: number;
+}
 
 export interface CartProductsEntity {
-    product: CartProduct;
-    price: string;
-    count: number;
     _id: string;
+    title: string;
+    description: string;
+    imageUrl: string;
+    brand: string;
+    price: number;
+    quantity: number;
+    sold: number;
+    count: number,
+    userObj: string;
+    categoryObj: string;
+    subCategoryObj: string;
+    createdAt?: string;
+    updatedAt?: string;
+    __v?: number;
 }
 
 export interface CartProduct {
@@ -26,6 +48,7 @@ export interface CartProduct {
     price: number;
     quantity: number;
     sold: number;
+    count: number,
     userObj: string;
     categoryObj: string;
     subCategoryObj: string;

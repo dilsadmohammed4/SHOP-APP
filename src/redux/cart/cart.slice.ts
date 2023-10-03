@@ -5,28 +5,51 @@ import {
 } from "@reduxjs/toolkit";
 import {ToastUtils} from "../../utils/ToastUtils";
 import * as cartAction from "../cart/cart.action";
-import {ICartResponseView} from "../../modules/cart/models/ICartResponseView";
+import {CartNewResponseView, CartProductsEntity, ICartResponseView} from "../../modules/cart/models/ICartResponseView";
+import {CartReduxService} from "../../modules/cart/models/ICartReduxService";
 
 export const cartFeatureKey = "cartFeature";
 
 export interface InitialState {
     loading: boolean;
     errorMessage: SerializedError;
-    cartProducts: ICartResponseView[];
+    cartProducts: ICartResponseView;
     cartProduct: ICartResponseView;
 }
 
 const initialState: InitialState = {
     loading: false,
     errorMessage: {} as SerializedError,
-    cartProducts: [] as ICartResponseView[],
-    cartProduct: {} as ICartResponseView
+    cartProduct: {
+        products: [] as CartProductsEntity[]
+    } as ICartResponseView,
+    cartProducts: {} as ICartResponseView
 };
 
 export const cartSlice = createSlice({
     name: "cartSlice",
     initialState: initialState,
-    reducers: {},
+    reducers: {
+        addToCartAction: (state, action) => {
+            const {product, count} = action.payload;
+            state.cartProduct = CartReduxService.addToCartUtil(state.cartProduct, product, count);
+        },
+        deleteCartItemAction: (state, action) => {
+            const {productId} = action.payload;
+            state.cartProduct = CartReduxService.deleteProductItemUtill(state.cartProduct, productId);
+        },
+        incrProductQtyAction: (state, action) => {
+            const {productId} = action.payload;
+            state.cartProduct = CartReduxService.incrementProductQuantity(state.cartProduct, productId);
+        },
+        decrProductQtyAction: (state, action) => {
+            const {productId} = action.payload;
+            state.cartProduct = CartReduxService.decrementProductQuantity(state.cartProduct, productId);
+        },
+        clearCartAction: (state, action) => {
+
+        }
+    },
     extraReducers: (builder) => {
         /**
          *Create cart
@@ -86,4 +109,13 @@ export const cartSlice = createSlice({
             );
     }
 });
+
+export const {
+    addToCartAction,
+    deleteCartItemAction,
+    incrProductQtyAction,
+    decrProductQtyAction,
+    clearCartAction
+
+} = cartSlice.actions;
 

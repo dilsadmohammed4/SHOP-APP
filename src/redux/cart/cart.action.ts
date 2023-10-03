@@ -32,7 +32,7 @@ export const getCartInfoAction: any = createAsyncThunk(
     async (
         payload: {},
         {rejectWithValue}
-    ): Promise<{ data: ICartResponseView[]; msg: string; status: string } | any> => {
+    ): Promise<{ data: ICartResponseView; msg: string; status: string } | any> => {
         try {
             if (AuthUtils.isSetTokenToRequestHeader()) {
                 const response = await CartService.getCartInfo();

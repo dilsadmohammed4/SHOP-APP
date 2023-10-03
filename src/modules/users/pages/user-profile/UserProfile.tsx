@@ -43,7 +43,7 @@ export const UserProfile: React.FC = () => {
                 dispatch(userAction.updateProfilePictureAction({imageUrl: imageUrl}))
             }
         })
-    }, [dispatch]);
+    }, []);
 
     const clickEditImage = () => {
         widgetRef.current.open();
@@ -63,7 +63,7 @@ export const UserProfile: React.FC = () => {
                             </Card.Header>
                             <Card.Body>
                                 <img alt="" className="img-fluid"
-                                     src={user.imageUrl}/>
+                                     src={user.imageUrl} style={{ height: '200px', width: '300px' }} />
                                 <div className="d-grid mt-3">
                                     <Button type="button" variant={"warning"} onClick={clickEditImage}><i
                                         className="bi bi-pencil-square"></i> Edit</Button>

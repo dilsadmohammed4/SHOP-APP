@@ -127,7 +127,6 @@ export const productSlice = createSlice({
                 (state, action) => {
                     state.loading = false;
                     state.product = action.payload.data;
-                    ToastUtils.displaySuccessToast(action.payload.msg);
                 }
             )
             .addCase(
@@ -182,8 +181,7 @@ export const productSlice = createSlice({
                 productAction.getAllProductsWithCategoryIdAction.fulfilled,
                 (state, action) => {
                     state.loading = false;
-                    state.product = action.payload.data;
-                    ToastUtils.displaySuccessToast(action.payload.msg);
+                    state.products = action.payload.data;
                 }
             )
             .addCase(

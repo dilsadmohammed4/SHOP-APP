@@ -31,7 +31,7 @@ export class CartService {
      */
 
     public static getCartInfo(): Promise<{
-        data: { data: ICartResponseView[]; msg: string; status: string };
+        data: { data: ICartResponseView; msg: string; status: string };
     }> {
         const dataUrl: string = `${this.serverUrl}/api/carts/me`;
         return axios.get(dataUrl);

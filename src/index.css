@@ -24,16 +24,18 @@ body {
     border-radius: 10px;
 }
 
-/*Spinner*/
-/*.spinner {*/
-/*    background-color: rgba(0, 0, 0, 0.5);*/
-/*    height: 100vh;*/
-/*    position: fixed;*/
-/*    top: 0;*/
-/*    width: 100%;*/
-/*}*/
+.spinner {
+    background-color: rgba(0, 0, 0, 0.2);
+    height: 100vh;
+    position: fixed;
+    z-index: 9999;
+    width: 100vw;
+}
 
-/*.spinner img {*/
-/*    display: block;*/
-/*    margin: 10% auto;*/
-/*}*/
+.spinner img {
+    padding-top: 300px;
+}
+
+.bg-light-grey {
+    background-color: #f8f2df !important;
+}

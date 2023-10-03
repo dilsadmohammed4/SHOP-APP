@@ -3,8 +3,8 @@ export interface IProductRequestView {
     description: string;
     imageUrl: string;
     brand: string;
-    price: number;
-    quantity: number;
-    categoryObj: string;
-    subCategoryObj: string;
+    price: string;
+    quantity: string;
+    categoryId: string;
+    subCategoryId: string;
 }

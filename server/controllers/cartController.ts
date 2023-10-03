@@ -61,7 +61,7 @@ export const getCartInfo = async (request: Request, response: Response) => {
     try {
         const theUser: any = await UserUtil.getUser(request, response);
         if (theUser) {
-            const theCart = await CartCollection.find({
+            const theCart = await CartCollection.findOne({
                 userObj: new mongoose.Types.ObjectId(theUser._id),
             })
                 .populate({
